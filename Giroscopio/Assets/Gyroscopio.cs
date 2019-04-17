@@ -1,26 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gyroscopio : MonoBehaviour
 {
-    GameObject MainCamera;
+    public Text text;
     private Gyroscope m_Gyro;
 
     void Start()
     {
-        MainCamera = Camera.main.gameObject;
-
         if(SystemInfo.supportsGyroscope)
         {
             m_Gyro = Input.gyro;
             m_Gyro.enabled = true;
         }
+        Input.compass.enabled = true;
     }
 
     void Gyro()
     {
-        MainCamera.transform.rotation = new Quaternion(0, -m_Gyro.rotationRateUnbiased.y / 2, 0, 0);
+        if (m_Gyro == null) return;
+        if(Input.compass.enabled) transform.rotation = m_Gyro.attitude;
+        text.text = "Giroscopio habilitado = " + SystemInfo.supportsGyroscope + " y su valor es: " + m_Gyro.attitude;
     }
 
     // Update is called once per frame
