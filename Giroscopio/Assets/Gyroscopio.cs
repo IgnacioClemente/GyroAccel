@@ -20,7 +20,7 @@ public class Gyroscopio : MonoBehaviour
 
     void Gyro()
     {
-        MainCamera.transform.Rotate(0, -m_Gyro.rotationRateUnbiased.y / 2, 0);
+        MainCamera.transform.rotation = new Quaternion(0, -m_Gyro.rotationRateUnbiased.y / 2, 0, 0);
     }
 
     // Update is called once per frame
